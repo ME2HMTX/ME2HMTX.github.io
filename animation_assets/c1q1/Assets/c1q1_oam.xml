@@ -5,7 +5,7 @@
 
 <category name="Flash Animation"/>
 <remarks>Compatible with: InDesign CC, Dreamweaver CC, Muse</remarks>
-<icon src="PosterImg_347.png" width="550" height="400"/>
+<icon src="PosterImg_255.png" width="550" height="400"/>
 <require type="other" src="c1q1.html"/>
 <require type="javascript" src="c1q1.js"/>
 <content></content>
