@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ME2 MECHATRONICS</title>
+	<script src="https://unpkg.com/mathjs@4.3.0/dist/math.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-1.35.2.min.js"></script>
+  <link href="css/bootstrap-4.0.0.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="css/w3.css" rel="stylesheet" type="text/css">
+  <style>
+    .w3-sidebar a {font-family: "Roboto", sans-serif}
+    body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
+    ul {padding-left: 0px;}
+    li {list-style-type: none;}
+  </style>
+</head>
+
+<body class="w3-content" style="max-width:100%">
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-bar-block w3-light-grey w3-collapse w3-top" style="z-index:3;width:210px" id="mySidebar">
+  <div class="w3-container w3-display-container w3-padding-16">
+    <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
+    <h3 class="w3-wide"><b>ME2-HMTX</b></h3>
+  </div>
+
+
+  <ul class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
+                    
+    <li class= "active">
+      <a href="./index.html" class="w3-bar-item w3-button w3-grey">Home <span class="sr-only">(current)</span> </a>
+    </li>
+    <li>
+      <a href="#" class="w3-bar-item w3-button">About</a>
+    </li>
+    <li>
+      <a href="#DemoSubmenu" data-toggle="collapse" aria-expanded="false" class="w3-bar-item w3-button">Demonstration <i class="fa fa-caret-down"></i></a>
+        <ul class="collapse list-unstyled w3-bar-block w3-padding-large w3-medium" id="DemoSubmenu" style="padding:8px 16px">
+          <li><a href="RN.html" class="w3-bar-item w3-button">Resistor Networks</a></li>
+          <li><a href="NLN.html" class="w3-bar-item w3-button">Non-linear networks</a></li>
+          <li><a href="R2R.html" class="w3-bar-item w3-button">R2R Ladder</a></li>
+        </ul>
+    </li>          
+    <li>
+      <a href="Tool.html" class="w3-bar-item w3-button">Tool</a>
+    </li>                           
+  </ul>
+
+    <!-- old navbar-->
+    <!--<div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
+    <a href="#" class="w3-bar-item w3-button w3-light-grey">Home</a>
+    <a href="#" class="w3-bar-item w3-button">About</a>
+    <a onclick="myAccFunc()" href="jeansvascript:void(0)" class="w3-bar-item w3-button">
+      Topics <i class="fa fa-caret-down"></i>
+    </a>
+    <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+      <a href="#" class="w3-bar-item w3-button">Chapter 1: Resistor Networks</a>
+      <a href="#" class="w3-bar-item w3-button">Chapter 2: Non-linear networks</a>
+      <a href="#" class="w3-bar-item w3-button">Chapter 3: R2R Ladder</a>
+      <a href="#" class="w3-bar-item w3-button">Straight</a>
+    </div>
+    <a href="QuickQuiz.html" class="w3-bar-item w3-button">Quick Quiz</a>
+  </div> -->
+
+  <a href="Feedback.html" class="w3-bar-item w3-button w3-padding">Feedback</a> 
+  <a href="https://bb.imperial.ac.uk"  class="w3-bar-item w3-button w3-padding">BlackBoard</a>
+  <a href="https://www.imperial.ac.uk/office365"  class="w3-bar-item w3-button w3-padding">Office365</a>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
+  <div class="w3-bar-item w3-padding-24 w3-wide">ME2-HMTX</div>
+  <!--button to open the menu--><a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onClick="w3_open()"><em class="fa fa-bars"></em></a></header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:200px">
+
+  <!-- Push down content on small screens -->
+  <div class="w3-hide-large" style="margin-top:83px"></div>
+  <div class="container-fluid">
+	<!-- dropdown list for user to select the filter they want to look at-->
+	  <form id="form" >
+  <label for="filter">Filters:</label>
+  <select name="filter" id="filter" onchange="requestinput(this)" >
+	<option value="" selected>None</option>
+	<option value="PLPF">Passive Low-Pass Filter</option>
+    <option value="PHPF">Passive High-Pass Filter</option>
+    <option value="ALPF">Active Low-Pass Filter</option>
+    <option value="AHPF">Active High-Pass Filter</option>
+    <option value="VI"> Voltage Integrator</option>
+	<option value="VD">Voltage Differentiator</option>
+  </select>
+</form>
+
+  <!--<label for="eq">Enter an equation:</label>
+  <input type="radio" name="filter" value="PLPF" checked> Passive Low-Pass Filter <br>
+  <input type="radio" name="filter" value="PHPF" /> Passive High-Pass Filter <br>
+  <input type="radio" name="filter" value="ALPF" /> Active Low-Pass Filter <br>
+  <input type="radio" name="filter" value="AHPF" /> Active High-Pass Filter <br>
+  <input type="radio" name="filter" value="VI" /> Voltage Integrator <br>
+  <input type="radio" name="filter" value="VD" /> Voltage Differentiator <br>
+  <input type="submit" value="Draw" /> -->
+</form>		
+<!-- after user selected the filter, they will be promted to enter the value of the resistors and capacitor-->
+<form id="form2">
+	<!--for PLPF,PHPF,VI,VD, hide the other input box-->	
+	<div id="RC" style="display:none">Input R and C value <br>
+    	<input type='text' id='R0' name='resistor' placeholder="enter value of R"/><br>
+        <input type='text' id='C0' name='capacitor' placeholder="enter value of C"/><br>
+	</div>
+	<!--for ALPF, hide the other input box-->
+	<div id="R2C" style="display:none">Input R1, R2 and C value <br>
+    	<input type='text' id='R11' name='resistor' placeholder="enter value of R1"/><br>
+    	<input type='text' id='R12' name='resistor' placeholder="enter value of R2"/><br>
+        <input type='text' id='C11' name='capacitor' placeholder="enter value of C"/><br>
+	</div>
+	<!--for AHPF, hide the other input box-->
+	<div id="RC2" style="display:none">Input R, C1 and C2 value <br>
+    	<input type='text' id='R21' name='resistor' placeholder="enter value of R"/><br>
+    	<input type='text' id='C21' name='capacitor' placeholder="enter value of C1"/><br>
+        <input type='text' id='C22' name='capacitor' placeholder="enter value of C2"/><br>
+	</div>
+	<!--submit button to plot the bode plots-->
+	<input type="submit" value="View">
+</form>
+	  
+<div id="plot" style="width:100%"></div>
+	</div>
+  <!-- End page content -->
+</div>
+
+<script type="text/javascript">
+
+var mode;
+var gain;
+var phase;
+var timeconstant;
+var wc
+var Hinf;
+var Hdc;;
+
+/*script for the action of hiding the input box according to user selection*/
+function requestinput(o) {
+	if((o.value== "PLPF")||(o.value=="PHPF")||(o.value=="VI")||(o.value=="VD")){
+		document.getElementById("RC").style.display='block';
+		document.getElementById("R2C").style.display='none';
+		document.getElementById("RC2").style.display='none';
+		if (o.value== "PLPF"){mode =1;}
+			else if (o.value=="PHPF"){mode =2;}
+				else if (o.value=="VI") {mode =3;}
+					else if (o.value=="VD") {mode=4;}
+	}
+	else if (o.value == "ALPF"){
+		document.getElementById("R2C").style.display='block';
+		document.getElementById("RC2").style.display='none';
+		document.getElementById("RC").style.display='none';
+		mode = 5;
+	}
+	else if (o.value== "AHPF"){
+		document.getElementById("RC2").style.display='block';
+		document.getElementById("R2C").style.display='none';
+		document.getElementById("RC").style.display='none';
+		mode = 6;
+	} 
+}
+
+  document.getElementById('form2').onsubmit = function (event) {
+    event.preventDefault();
+    collect();
+    
+  };
+
+  function collect(){
+	if(mode<5){
+		timeconstant= (document.getElementById('R0').value)*(document.getElementById('C0').value);
+		if (mode== 1) {
+			gain = '20*log10(1/sqrt(1+('+ timeconstant+ '*x)^2))';
+			phase = '(-atan('+ timeconstant+ '*x))*180/pi';
+		}
+		else if (mode==2){
+			gain = '20*log10(x*'+timeconstant+'/sqrt(1+('+ timeconstant+ '*x)^2))';
+			phase = '90-(atan('+ timeconstant+ '*x))*180/pi';
+		}
+		else if (mode==3){
+			gain = '20*log10(1/sqrt('+ timeconstant+ '*x))';
+			phase = '90';
+		}
+		else if (mode==4){
+			gain = '20*log10('+ timeconstant+ '*x)';
+			phase = '-90';
+		}
+	}
+	else if (mode==5){
+		timeconstant= (document.getElementById('R12').value)*(document.getElementById('C11').value);
+		Hdc=(document.getElementById('R12').value)/(document.getElementById('R11').value);
+		gain = '20*log10('+Hdc+'*1/sqrt(1+('+ timeconstant+ '*x)^2))';
+		phase = '180-(atan('+ timeconstant+ '*x))*180/pi';
+	}
+	else if (mode==6){
+		timeconstant= (document.getElementById('R21').value)*(document.getElementById('C22').value);
+		Hinf=(document.getElementById('C21').value)/(document.getElementById('C22').value);		
+		gain = '20*log10('+Hinf+'*x*'+timeconstant+'/sqrt(1+('+ timeconstant+ '*x)^2))';
+		phase = '-90-(atan('+ timeconstant+ '*x))*180/pi';
+	}
+	wc=1/timeconstant;
+	draw(gain,phase); 
+}
+
+
+
+  function draw(expression1,expression2) {
+  	try {
+      // compile the expression once
+  
+      var expr = math.compile(expression2);
+
+      // evaluate the expression repeatedly for different values of x
+      var xValues = math.range(0.1, 10000, 0.1).toArray();
+      var yValues = xValues.map(function (x) {
+        return expr.eval({x: x});
+      });
+
+      var expr2 = math.compile(expression1);
+
+      // evaluate the expression repeatedly for different values of x
+      var xValues2 = math.range(0.1, 10000, 0.1).toArray();
+      var yValues2 = xValues.map(function (x) {
+        return expr2.eval({x: x});
+      });
+
+      // render the plot using plotly
+      /*data selection*/
+      var trace1 = {
+        x: xValues,
+        y: yValues,
+        type: 'scatter'	
+      };
+
+		/*second set for phase*/
+      var trace2 = {
+  		x: xValues2,
+  		y: yValues2,
+ 		xaxis: 'x2',
+  		yaxis: 'y2',
+  		type: 'scatter'
+	};
+	/*combine data to do subplots*/
+	var data = [trace1, trace2];
+
+	/*edit layout*/
+	var layout = {
+	  xaxis: {type: 'log',autorange: true, dtick:'D1'},	  
+	  yaxis: {domain: [0, 0.45]},
+	  xaxis2: {type: 'log',autorange: true, anchor: 'y2', dtick:'D1'},
+	  yaxis2: {domain: [0.55, 1]}
+	};
+
+
+      Plotly.react('plot', data, layout);
+      //document.getElementById("demo").innerHTML =mode;
+    }
+    catch (err) {
+      console.error(err);
+      alert(err);
+    }
+  }
+ 
+
+  /*draw();*/
+ //document.getElementById("demo").innerHTML =wc;
+
+</script>
+<script>
+// Accordion 
+function myAccFunc() {
+    var x = document.getElementById("demoAcc");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+
+// Script to open and close sidebar
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+    /*document.getElementById("myOverlay").style.width = "100%";
+    document.getElementById("mySidebar").style.width= "100%";*/
+}
+ 
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+    /*document.getElementById("mySidebar").style.width = "0%";
+    document.getElementById("myOverlay").style.width = "0%";*/
+}
+
+/* .style.width for sliding from the side. e.g. left to right (0 [close] to 100% [open] width)
+/* .style.width for sliding down from the top. e.g. (0 [close] to 100% [open] width)
+
+
+/* Open */
+/*function openNav() {
+    document.getElementById("myNav").style.height = "100%";
+} */
+
+/* Close */
+/*function closeNav() {
+    document.getElementById("myNav").style.height = "0%";
+}  */
+</script>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap-4.0.0.js"></script>
+</body>
+</html>
