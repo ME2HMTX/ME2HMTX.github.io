@@ -20,7 +20,7 @@
 <body class="w3-content" style="max-width:100%">
 
 <!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-bar-block w3-light-grey w3-collapse w3-top" style="z-index:3;width:220px" id="mySidebar">
+<nav class="w3-sidebar w3-bar-block w3-light-grey w3-collapse w3-top" style="z-index:3;width:200px" id="mySidebar">
   <div class="w3-container w3-display-container w3-padding-16">
     <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
     <h3 class="w3-wide"><b>ME2-HMTX</b></h3>
@@ -82,9 +82,251 @@
 
   <!-- Push down content on small screens -->
   <div class="w3-hide-large" style="margin-top:83px"></div>
- 
-
-  <!-- End page content -->
+  <div class="container-fluid">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <input type="checkbox" aria-label="placeholder text">
+        </div>
+      </div>
+      <form id="form" >
+  <label for="filter">Filters:</label>
+  <select name="filter" id="filter" onchange="requestinput(this)" >
+	<option value="" selected>None</option>
+	<option value="PLPF">Passive Low-Pass Filter</option>
+    <option value="PHPF">Passive High-Pass Filter</option>
+    <option value="ALPF">Active Low-Pass Filter</option>
+    <option value="AHPF">Active High-Pass Filter</option>
+    <option value="VI"> Voltage Integrator</option>
+	<option value="VD">Voltage Differentiator</option>
+  </select>
+</form>
+		<form id="form2">
+	<!--for PLPF,PHPF,VI,VD, hide the other input box-->	
+	<div id="RC" style="display:none">Input R and C value <br>
+    	<input type='text' id='R0' name='resistor' placeholder="enter value of R"/><br>
+        <input type='text' id='C0' name='capacitor' placeholder="enter value of C"/>
+	</div>
+	<!--for ALPF, hide the other input box-->
+	<div id="R2C" style="display:none">Input R1, R2 and C value <br>
+    	<input type='text' id='R11' name='resistor' placeholder="enter value of R1"/><br>
+    	<input type='text' id='R12' name='resistor' placeholder="enter value of R2"/><br>
+        <input type='text' id='C11' name='capacitor' placeholder="enter value of C"/>
+	</div>
+	<!--for AHPF, hide the other input box-->
+	<div id="RC2" style="display:none">Input R, C1 and C2 value <br>
+    	<input type='text' id='R21' name='resistor' placeholder="enter value of R"/><br>
+    	<input type='text' id='C21' name='capacitor' placeholder="enter value of C1"/><br>
+        <input type='text' id='C22' name='capacitor' placeholder="enter value of C2"/>
+	</div>
+	<!--submit button to plot the bode plots-->
+	<input type="submit" value="Add">
+</form>
+    </div>
+	  
+	  <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <input type="checkbox" aria-label="placeholder text">
+        </div>
+      </div>
+      <form id="form" >
+  <label for="filter">Filters:</label>
+  <select name="filter" id="filter" onchange="requestinput(this)" >
+	<option value="" selected>None</option>
+	<option value="PLPF">Passive Low-Pass Filter</option>
+    <option value="PHPF">Passive High-Pass Filter</option>
+    <option value="ALPF">Active Low-Pass Filter</option>
+    <option value="AHPF">Active High-Pass Filter</option>
+    <option value="VI"> Voltage Integrator</option>
+	<option value="VD">Voltage Differentiator</option>
+  </select>
+</form>
+		<form id="form2">
+	<!--for PLPF,PHPF,VI,VD, hide the other input box-->	
+	<div id="RC" style="display:none">Input R and C value <br>
+    	<input type='text' id='R0' name='resistor' placeholder="enter value of R"/><br>
+        <input type='text' id='C0' name='capacitor' placeholder="enter value of C"/>
+	</div>
+	<!--for ALPF, hide the other input box-->
+	<div id="R2C" style="display:none">Input R1, R2 and C value <br>
+    	<input type='text' id='R11' name='resistor' placeholder="enter value of R1"/><br>
+    	<input type='text' id='R12' name='resistor' placeholder="enter value of R2"/><br>
+        <input type='text' id='C11' name='capacitor' placeholder="enter value of C"/>
+	</div>
+	<!--for AHPF, hide the other input box-->
+	<div id="RC2" style="display:none">Input R, C1 and C2 value <br>
+    	<input type='text' id='R21' name='resistor' placeholder="enter value of R"/><br>
+    	<input type='text' id='C21' name='capacitor' placeholder="enter value of C1"/><br>
+        <input type='text' id='C22' name='capacitor' placeholder="enter value of C2"/>
+	</div>
+	<!--submit button to plot the bode plots-->
+	<input type="submit" value="Add">
+</form>
+    </div>
+	  <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <input type="checkbox" aria-label="placeholder text">
+        </div>
+      </div>
+      <form id="form" >
+  <label for="filter">Filters:</label>
+  <select name="filter" id="filter" onchange="requestinput(this)" >
+	<option value="" selected>None</option>
+	<option value="PLPF">Passive Low-Pass Filter</option>
+    <option value="PHPF">Passive High-Pass Filter</option>
+    <option value="ALPF">Active Low-Pass Filter</option>
+    <option value="AHPF">Active High-Pass Filter</option>
+    <option value="VI"> Voltage Integrator</option>
+	<option value="VD">Voltage Differentiator</option>
+  </select>
+</form>
+		<form id="form2">
+	<!--for PLPF,PHPF,VI,VD, hide the other input box-->	
+	<div id="RC" style="display:none">Input R and C value <br>
+    	<input type='text' id='R0' name='resistor' placeholder="enter value of R"/><br>
+        <input type='text' id='C0' name='capacitor' placeholder="enter value of C"/>
+	</div>
+	<!--for ALPF, hide the other input box-->
+	<div id="R2C" style="display:none">Input R1, R2 and C value <br>
+    	<input type='text' id='R11' name='resistor' placeholder="enter value of R1"/><br>
+    	<input type='text' id='R12' name='resistor' placeholder="enter value of R2"/><br>
+        <input type='text' id='C11' name='capacitor' placeholder="enter value of C"/>
+	</div>
+	<!--for AHPF, hide the other input box-->
+	<div id="RC2" style="display:none">Input R, C1 and C2 value <br>
+    	<input type='text' id='R21' name='resistor' placeholder="enter value of R"/><br>
+    	<input type='text' id='C21' name='capacitor' placeholder="enter value of C1"/><br>
+        <input type='text' id='C22' name='capacitor' placeholder="enter value of C2"/>
+	</div>
+	<!--submit button to plot the bode plots-->
+	<input type="submit" value="Add">
+</form>
+    </div>
+	  <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <input type="checkbox" aria-label="placeholder text">
+        </div>
+      </div>
+      <form id="form" >
+  <label for="filter">Filters:</label>
+  <select name="filter" id="filter" onchange="requestinput(this)" >
+	<option value="" selected>None</option>
+	<option value="PLPF">Passive Low-Pass Filter</option>
+    <option value="PHPF">Passive High-Pass Filter</option>
+    <option value="ALPF">Active Low-Pass Filter</option>
+    <option value="AHPF">Active High-Pass Filter</option>
+    <option value="VI"> Voltage Integrator</option>
+	<option value="VD">Voltage Differentiator</option>
+  </select>
+</form>
+		<form id="form2">
+	<!--for PLPF,PHPF,VI,VD, hide the other input box-->	
+	<div id="RC" style="display:none">Input R and C value <br>
+    	<input type='text' id='R0' name='resistor' placeholder="enter value of R"/><br>
+        <input type='text' id='C0' name='capacitor' placeholder="enter value of C"/>
+	</div>
+	<!--for ALPF, hide the other input box-->
+	<div id="R2C" style="display:none">Input R1, R2 and C value <br>
+    	<input type='text' id='R11' name='resistor' placeholder="enter value of R1"/><br>
+    	<input type='text' id='R12' name='resistor' placeholder="enter value of R2"/><br>
+        <input type='text' id='C11' name='capacitor' placeholder="enter value of C"/>
+	</div>
+	<!--for AHPF, hide the other input box-->
+	<div id="RC2" style="display:none">Input R, C1 and C2 value <br>
+    	<input type='text' id='R21' name='resistor' placeholder="enter value of R"/><br>
+    	<input type='text' id='C21' name='capacitor' placeholder="enter value of C1"/><br>
+        <input type='text' id='C22' name='capacitor' placeholder="enter value of C2"/>
+	</div>
+	<!--submit button to plot the bode plots-->
+	<input type="submit" value="Add">
+</form>
+    </div>
+	  <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <input type="checkbox" aria-label="placeholder text">
+        </div>
+      </div>
+      <form id="form" >
+  <label for="filter">Filters:</label>
+  <select name="filter" id="filter" onchange="requestinput(this)" >
+	<option value="" selected>None</option>
+	<option value="PLPF">Passive Low-Pass Filter</option>
+    <option value="PHPF">Passive High-Pass Filter</option>
+    <option value="ALPF">Active Low-Pass Filter</option>
+    <option value="AHPF">Active High-Pass Filter</option>
+    <option value="VI"> Voltage Integrator</option>
+	<option value="VD">Voltage Differentiator</option>
+  </select>
+</form>
+		<form id="form2">
+	<!--for PLPF,PHPF,VI,VD, hide the other input box-->	
+	<div id="RC" style="display:none">Input R and C value <br>
+    	<input type='text' id='R0' name='resistor' placeholder="enter value of R"/><br>
+        <input type='text' id='C0' name='capacitor' placeholder="enter value of C"/>
+	</div>
+	<!--for ALPF, hide the other input box-->
+	<div id="R2C" style="display:none">Input R1, R2 and C value <br>
+    	<input type='text' id='R11' name='resistor' placeholder="enter value of R1"/><br>
+    	<input type='text' id='R12' name='resistor' placeholder="enter value of R2"/><br>
+        <input type='text' id='C11' name='capacitor' placeholder="enter value of C"/>
+	</div>
+	<!--for AHPF, hide the other input box-->
+	<div id="RC2" style="display:none">Input R, C1 and C2 value <br>
+    	<input type='text' id='R21' name='resistor' placeholder="enter value of R"/><br>
+    	<input type='text' id='C21' name='capacitor' placeholder="enter value of C1"/><br>
+        <input type='text' id='C22' name='capacitor' placeholder="enter value of C2"/>
+	</div>
+	<!--submit button to plot the bode plots-->
+	<input type="submit" value="Add">
+</form>
+    </div>
+	  <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <input type="checkbox" aria-label="placeholder text">
+        </div>
+      </div>
+      <form id="form" >
+  <label for="filter">Filters:</label>
+  <select name="filter" id="filter" onchange="requestinput(this)" >
+	<option value="" selected>None</option>
+	<option value="PLPF">Passive Low-Pass Filter</option>
+    <option value="PHPF">Passive High-Pass Filter</option>
+    <option value="ALPF">Active Low-Pass Filter</option>
+    <option value="AHPF">Active High-Pass Filter</option>
+    <option value="VI"> Voltage Integrator</option>
+	<option value="VD">Voltage Differentiator</option>
+  </select>
+</form>
+		<form id="form2">
+	<!--for PLPF,PHPF,VI,VD, hide the other input box-->	
+	<div id="RC" style="display:none">Input R and C value <br>
+    	<input type='text' id='R0' name='resistor' placeholder="enter value of R"/><br>
+        <input type='text' id='C0' name='capacitor' placeholder="enter value of C"/>
+	</div>
+	<!--for ALPF, hide the other input box-->
+	<div id="R2C" style="display:none">Input R1, R2 and C value <br>
+    	<input type='text' id='R11' name='resistor' placeholder="enter value of R1"/><br>
+    	<input type='text' id='R12' name='resistor' placeholder="enter value of R2"/><br>
+        <input type='text' id='C11' name='capacitor' placeholder="enter value of C"/>
+	</div>
+	<!--for AHPF, hide the other input box-->
+	<div id="RC2" style="display:none">Input R, C1 and C2 value <br>
+    	<input type='text' id='R21' name='resistor' placeholder="enter value of R"/><br>
+    	<input type='text' id='C21' name='capacitor' placeholder="enter value of C1"/><br>
+        <input type='text' id='C22' name='capacitor' placeholder="enter value of C2"/>
+	</div>
+	<!--submit button to plot the bode plots-->
+	<input type="submit" value="Add">
+</form>
+    </div>
+</div>
+	
+<!-- End page content -->
 </div>
 
 

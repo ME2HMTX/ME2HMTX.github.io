@@ -216,7 +216,7 @@ function requestinput(o) {
 
 
 
-    function draw(expression1,expression2) {
+  function draw(expression1,expression2) {
   	try {
       // compile the expression once
   
@@ -242,7 +242,6 @@ function requestinput(o) {
         x: xValues,
         y: yValues,
         type: 'scatter'	
-        
       };
 
 		/*second set for phase*/
@@ -252,7 +251,6 @@ function requestinput(o) {
  		xaxis: 'x2',
   		yaxis: 'y2',
   		type: 'scatter'
-  		
 	};
 	/*combine data to do subplots*/
 	var data = [trace1, trace2];
@@ -262,26 +260,19 @@ function requestinput(o) {
 	  xaxis: {type: 'log',autorange: true, dtick:'D1'},	  
 	  yaxis: {domain: [0, 0.45]},
 	  xaxis2: {type: 'log',autorange: true, anchor: 'y2', dtick:'D1'},
-	  yaxis2: {domain: [0.55, 1]},
-	  showlegend:false,
-	  	margin: {
-	    l: 50,
-	    r: 50,
-	    b: 20,
-	    t: 20
-	  },
+	  yaxis2: {domain: [0.55, 1]}
 	};
 
 
-      Plotly.react('plot', data, layout, {displayModeBar: false});
-      
+      Plotly.react('plot', data, layout);
+      //document.getElementById("demo").innerHTML =mode;
     }
     catch (err) {
       console.error(err);
       alert(err);
     }
   }
- window.onresize = function() { Plotly.Plots.resize( 'plot' ) };
+ 
 
   /*draw();*/
  //document.getElementById("demo").innerHTML =wc;
