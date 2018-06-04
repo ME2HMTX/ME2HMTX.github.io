@@ -84,6 +84,22 @@
 
   <!-- Push down content on small screens -->
   <div class="w3-hide-large" style="margin-top:83px"></div>
+	
+	<!--tab-->
+	<div class="container-fluid">
+	  <ul id="clothingnav1" class="nav nav-tabs" role="tablist">
+	    <li class="nav-item"> <a class="nav-link active" href="#home1" id="hometab1" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Filter Bode Plot</a> </li>
+	    <li class="nav-item"> <a class="nav-link" href="#paneTwo1" role="tab" id="hatstab1" data-toggle="tab" aria-controls="hats">Cascade Bode Plot</a> </li>
+	    
+      </ul>
+	  <!-- Content Panel -->
+		
+		
+		
+	  <div id="clothingnavcontent1" class="tab-content">
+		  <!--first tab-->
+	    <div role="tabpanel" class="tab-pane fade show active" id="home1" aria-labelledby="hometab1">
+	      <!--bode plot-->
   <div class="container-fluid">
 	<!-- dropdown list for user to select the filter they want to look at-->
     <form id="form" >
@@ -130,10 +146,29 @@
 	<!--submit button to plot the bode plots-->
 	<input type="submit" value="View">
 </form>
+	<form id='appear'>
+		<input type="submit" value="Edit">
+		
+			</form>
 </div>	  
 <div class="container-fluid">
 	<div id="plot" style="width:100%"></div>
-	</div>
+  </div>
+        </div>
+		  
+		  <!--second tab-->
+	    <div role="tabpanel" class="tab-pane fade" id="paneTwo1" aria-labelledby="hatstab1">
+	      <p>Content 2</p>
+        </div>
+		  
+		  
+	    
+	    
+      </div>
+  </div>
+	
+	
+
   <!-- End page content -->
 </div>
 
@@ -146,7 +181,7 @@ var timeconstant;
 var wc
 var Hinf;
 var Hdc;;
-
+var show=1;
 /*script for the action of hiding the input box according to user selection*/
 function requestinput(o) {
 	if((o.value== "PLPF")||(o.value=="PHPF")||(o.value=="VI")||(o.value=="VD")){
@@ -172,12 +207,47 @@ function requestinput(o) {
 	} 
 }
 
+	document.getElementById('appear').onsubmit = function (event) {
+    event.preventDefault();
+    hideshow();
+    
+  };
+	
+	function hideshow (){
+		if (show==1){			document.getElementById("form").style.display='none';
+		document.getElementById("form2").style.display='none';
+		document.getElementById("appear").style.display='block';
+					 
+		show=0;
+					 
+		}
+		else if (show==0){
+		document.getElementById("form").style.display='block';
+		document.getElementById("form2").style.display='block';	
+		
+		document.getElementById("appear").style.display='none';
+		
+		show=1;	
+		}
+			
+	};
+	
   document.getElementById('form2').onsubmit = function (event) {
     event.preventDefault();
     collect();
-    
+	hideshow();
+    showinfo();
   };
 
+	function showinfo(){
+	document.getElementById("timeconstant").innerHTML =timeconstant;
+	document.getElementById("demo").innerHTML =wc;
+	document.getElementById("demo").innerHTML =H;
+	document.getElementById("demo").innerHTML =degree;
+	document.getElementById("demo").innerHTML =Hinf;
+	document.getElementById("demo").innerHTML =Hdc;
+	};
+	
   function collect(){
 	if(mode<5){
 		timeconstant= (document.getElementById('R0').value)*(document.getElementById('C0').value);
@@ -259,12 +329,14 @@ function requestinput(o) {
 
 	/*edit layout*/
 	var layout = {
-	  xaxis: {type: 'log',autorange: true, dtick:'D1'},	  
-	  yaxis: {domain: [0, 0.45]},
-	  xaxis2: {type: 'log',autorange: true, anchor: 'y2', dtick:'D1'},
-	  yaxis2: {domain: [0.55, 1]},
+	  hovermode: 'compare',
+		xaxis: {type: 'log',autorange: true, dtick:'D1', spikemode: 'across' },	  
+	  yaxis: {domain: [0, 0.45], spikemode: 'across'},
+	  xaxis2: {type: 'log',autorange: true, anchor: 'y2', dtick:'D1', spikemode: 'across'},
+	  yaxis2: {domain: [0.55, 1], spikemode: 'across'},
 	  showlegend:false,
-	  	margin: {
+	  	height:650,
+		margin: {
 	    l: 50,
 	    r: 50,
 	    b: 20,
@@ -282,7 +354,7 @@ function requestinput(o) {
     }
   }
  window.onresize = function() { Plotly.Plots.resize( 'plot' ) };
-
+hideshow();
   /*draw();*/
  //document.getElementById("demo").innerHTML =wc;
 
