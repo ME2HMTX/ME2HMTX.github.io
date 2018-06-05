@@ -413,7 +413,7 @@ p.nominalBounds = new cjs.Rectangle(-226.9,-139.7,98,26);
 		
 		function fl_ClickToGoToAndPlayFromFrame_9()
 		{
-			this.gotoAndPlay(48);
+			this.gotoAndPlay(38);
 		}
 		
 		
