@@ -30,7 +30,7 @@
   <ul class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
                     
     <li class= "active">
-      <a href="./index.html" class="w3-bar-item w3-button ">Home  </a>
+      <a href="./index.html" class="w3-bar-item w3-button w3-grey">Home <span class="sr-only">(current)</span> </a>
     </li>
     
     <li>
@@ -44,7 +44,7 @@
       <a href="Tools.html" class="w3-bar-item w3-button ">Tool</a>
     </li>  
 	<li>
-      <a href="Feedback.html" class="w3-bar-item w3-button w3-grey">Feedback<span class="sr-only">(current)</span></a>
+      <a href="Feedback.html" class="w3-bar-item w3-button ">Feedback</a>
     </li>
   </ul>
 
@@ -64,10 +64,11 @@
     <a href="QuickQuiz.html" class="w3-bar-item w3-button">Quick Quiz</a>
   </div> -->
 
-  <a href="https://www.imperial.ac.uk/people/f.rodriguez" class="w3-bar-item w3-button w3-padding">Contact</a> 
+  <a href="Feedback.html" class="w3-bar-item w3-button w3-padding">Contact</a> 
   <a href="https://bb.imperial.ac.uk"  class="w3-bar-item w3-button w3-padding">BlackBoard</a>
   <a href="https://www.imperial.ac.uk/office365"  class="w3-bar-item w3-button w3-padding">Office365</a>
 </nav>
+
 
 <!-- Top menu on small screens -->
 <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
@@ -82,9 +83,60 @@
 
   <!-- Push down content on small screens -->
   <div class="w3-hide-large" style="margin-top:83px"></div>
- <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfSQE79lWBvHc5tq8grp4SVwBS8ybeubpMSpoxKSC_U8Ta7cw/viewform?embedded=true" width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
-
-  <!-- End page content -->
+  <div class="container-fluid">
+	  <!--Cut from here-->
+    <div class="input-group mb-3">
+		
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <input type="checkbox" aria-label="placeholder text">
+			<form id="form" style='height: auto' >
+  		<label for="filter">Filters:</label>
+  		<select name="filter" id="filter" onchange="requestinput(this)" >
+			<option value="" selected>None</option>
+			<option value="PLPF">Passive Low-Pass Filter</option>
+			<option value="PHPF">Passive High-Pass Filter</option>
+			<option value="ALPF">Active Low-Pass Filter</option>
+			<option value="AHPF">Active High-Pass Filter</option>
+			<option value="VI"> Voltage Integrator</option>
+			<option value="VD">Voltage Differentiator</option>
+	  	</select>
+	</form>
+        <form id="form2">
+	<!--for PLPF,PHPF,VI,VD, hide the other input box-->	
+	<div id="RC" style="display:block"> 
+    	<input type='text' id='R0' name='resistor' placeholder="enter value of R"/>
+        <input type='text' id='C0' name='capacitor' placeholder="enter value of C" />
+	</div>
+	<!--for ALPF, hide the other input box-->
+	<div id="R2C" style="display:none">
+    	<input type='text' id='R11' name='resistor' placeholder="enter value of R1"/><br>
+    	<input type='text' id='R12' name='resistor' placeholder="enter value of R2"/><br>
+        <input type='text' id='C11' name='capacitor' placeholder="enter value of C"/>
+	</div>
+	<!--for AHPF, hide the other input box-->
+	<div id="RC2" style="display:none">
+    	<input type='text' id='R21' name='resistor' placeholder="enter value of R"/><br>
+    	<input type='text' id='C21' name='capacitor' placeholder="enter value of C1"/><br>
+        <input type='text' id='C22' name='capacitor' placeholder="enter value of C2"/>
+	</div>
+	<!--submit button to plot the bode plots-->
+	
+	  
+		<input type="submit" value="Add">
+</form>
+		  </div>
+		  
+      </div>
+		
+      
+	
+    </div>
+	  
+		<!--cut until here-->
+</div>
+	
+<!-- End page content -->
 </div>
 
 

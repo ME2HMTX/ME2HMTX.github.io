@@ -66,7 +66,7 @@
     <a href="QuickQuiz.html" class="w3-bar-item w3-button">Quick Quiz</a>
   </div> -->
 
-  <a href="https://www.imperial.ac.uk/people/f.rodriguez" class="w3-bar-item w3-button w3-padding">Contact</a> 
+  <a href="Feedback.html" class="w3-bar-item w3-button w3-padding">Contact</a> 
   <a href="https://bb.imperial.ac.uk"  class="w3-bar-item w3-button w3-padding">BlackBoard</a>
   <a href="https://www.imperial.ac.uk/office365"  class="w3-bar-item w3-button w3-padding">Office365</a>
 </nav>
@@ -99,6 +99,8 @@
 	  <div id="clothingnavcontent1" class="tab-content">
 		  <!--first tab-->
 	    <div role="tabpanel" class="tab-pane fade show active" id="home1" aria-labelledby="hometab1">
+	     
+
 	      <!--bode plot-->
   <div class="container-fluid">
 	<!-- dropdown list for user to select the filter they want to look at-->
@@ -123,6 +125,7 @@
   <input type="radio" name="filter" value="VI" /> Voltage Integrator <br>
   <input type="radio" name="filter" value="VD" /> Voltage Differentiator <br>
   <input type="submit" value="Draw" /> -->
+
 </form>		
 <!-- after user selected the filter, they will be promted to enter the value of the resistors and capacitor-->
 <form id="form2">
@@ -143,14 +146,17 @@
     	<input type='text' id='C21' name='capacitor' placeholder="enter value of C1"/><br>
         <input type='text' id='C22' name='capacitor' placeholder="enter value of C2"/>
 	</div>
+
 	<!--submit button to plot the bode plots-->
 	<input type="submit" value="View">
 </form>
+
+	<!--Button that will appear after the details for the bode plot have been submitted, for user to edit the values afterwwards-->
 	<form id='appear'>
-		<input type="submit" value="Edit">
-		
-			</form>
-</div>	  
+		<input type="submit" value="Edit">	
+	</form>
+</div>	 
+
 <div class="container-fluid">
 	<div id="plot" style="width:100%"></div>
   </div>
@@ -158,7 +164,7 @@
 		  
 		  <!--second tab-->
 	    <div role="tabpanel" class="tab-pane fade" id="paneTwo1" aria-labelledby="hatstab1">
-	      <p>Development of the Cascade plot will be a future work</p>
+	      <p>Content 2</p>
         </div>
 		  
 		  
@@ -182,6 +188,7 @@ var wc
 var Hinf;
 var Hdc;;
 var show=1;
+
 /*script for the action of hiding the input box according to user selection*/
 function requestinput(o) {
 	if((o.value== "PLPF")||(o.value=="PHPF")||(o.value=="VI")||(o.value=="VD")){
@@ -207,11 +214,6 @@ function requestinput(o) {
 	} 
 }
 
-	document.getElementById('appear').onsubmit = function (event) {
-    event.preventDefault();
-    hideshow();
-    
-  };
 	
 	function hideshow (){
 		if (show==1){			document.getElementById("form").style.display='none';
@@ -232,23 +234,18 @@ function requestinput(o) {
 			
 	};
 	
-  document.getElementById('form2').onsubmit = function (event) {
-    event.preventDefault();
-    collect();
-	hideshow();
-    showinfo();
-  };
 
-	function showinfo(){
+
+function showinfo(){
 	document.getElementById("timeconstant").innerHTML =timeconstant;
 	document.getElementById("demo").innerHTML =wc;
 	document.getElementById("demo").innerHTML =H;
 	document.getElementById("demo").innerHTML =degree;
 	document.getElementById("demo").innerHTML =Hinf;
 	document.getElementById("demo").innerHTML =Hdc;
-	};
+};
 	
-  function collect(){
+function collect(){
 	if(mode<5){
 		timeconstant= (document.getElementById('R0').value)*(document.getElementById('C0').value);
 		if (mode== 1) {
@@ -284,9 +281,12 @@ function requestinput(o) {
 	draw(gain,phase); 
 }
 
+function cascade(){
+	totalgain=gain1+gain2;
+	totalphase=phase1+phase2;
+}
 
-
-    function draw(expression1,expression2) {
+function draw(expression1,expression2) {
   	try {
       // compile the expression once
   
@@ -352,8 +352,25 @@ function requestinput(o) {
       console.error(err);
       alert(err);
     }
-  }
- window.onresize = function() { Plotly.Plots.resize( 'plot' ) };
+}
+
+/*action that will be performed when the edit button is pressed*/
+document.getElementById('appear').onsubmit = function (event) {
+	event.preventDefault();
+    hideshow();
+    
+};
+
+
+/*action that will be performed when the submit button is pressed*/
+document.getElementById('form2').onsubmit = function (event) {
+    event.preventDefault();
+    collect();
+	hideshow();
+    showinfo();
+};
+
+window.onresize = function() { Plotly.Plots.resize( 'plot' ) };
 hideshow();
   /*draw();*/
  //document.getElementById("demo").innerHTML =wc;
